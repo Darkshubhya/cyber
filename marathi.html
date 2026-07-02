@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Science of Cyber Security - Marathi Slide Seminar</title>
+
+    <!-- Google Fonts matching index.html for visual consistency -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Modern Cyber CSS variables */
+        :root {
+            --bg-primary: #05070c;
+            --bg-secondary: #0a0e1a;
+            --bg-card: rgba(13, 20, 38, 0.75);
+            --border-glow: rgba(0, 242, 254, 0.15);
+            --border-glow-focus: rgba(0, 242, 254, 0.55);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --cyber-cyan: #00f2fe;
+            --cyber-purple: #8b5cf6;
+            --cyber-green: #10b981;
+            --cyber-red: #ef4444;
+            --cyber-yellow: #f59e0b;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Cyber Background Grid */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(13, 20, 38, 0.6) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(13, 20, 38, 0.6) 2px, transparent 2px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 80%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navbar Layout */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 30px;
+            background: rgba(5, 7, 12, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+            z-index: 100;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            fill: var(--cyber-cyan);
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 17px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .btn-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(10, 14, 26, 0.8);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav:hover {
+            border-color: var(--cyber-cyan);
+            color: var(--cyber-cyan);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
+        }
+
+        /* Presentation Layout */
+        .workspace {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 20px;
+        }
+
+        /* Slide Container */
+        .slide-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            min-height: 520px;
+            overflow: hidden;
+            position: relative;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 900px) {
+            .slide-container {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            .slide-right {
+                border-left: none;
+                border-top: 1px solid rgba(0, 242, 254, 0.15);
+                padding: 30px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 14px;
+                gap: 12px;
+                text-align: center;
+            }
+            .nav-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+            }
+            .btn-nav {
+                padding: 6px 12px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .slide-left {
+                padding: 24px;
+            }
+            .slide-title {
+                font-size: 22px;
+            }
+            .slide-subtitle {
+                font-size: 11.5px;
+                margin-bottom: 16px;
+            }
+            .slide-bullets li {
+                font-size: 13px;
+                padding-left: 20px;
+            }
+            .slide-bullets li::before {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .control-hud {
+                padding: 10px 14px;
+            }
+            .btn-ctrl {
+                padding: 8px 12px;
+                font-size: 9px;
+            }
+            .progress-dot {
+                width: 5px;
+                height: 5px;
+            }
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-purple));
+            z-index: 2;
+        }
+
+        /* Slide Panels */
+        .slide-left {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-right {
+            background: rgba(5, 7, 12, 0.55);
+            border-left: 1px solid rgba(0, 242, 254, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        /* Typography */
+        .slide-index-tag {
+            font-family: var(--font-display);
+            font-size: 11px;
+            color: var(--cyber-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 900;
+            color: white;
+            line-height: 1.25;
+            margin-bottom: 6px;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+        }
+
+        .slide-subtitle {
+            font-size: 13.5px;
+            color: var(--cyber-purple);
+            margin-bottom: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .slide-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .slide-bullets li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--cyber-cyan);
+            text-shadow: 0 0 8px var(--cyber-cyan);
+            font-size: 14px;
+        }
+
+        .slide-bullets li strong {
+            color: var(--text-primary);
+        }
+
+        /* Slide Graphics */
+        .slide-media {
+            max-width: 90%;
+            max-height: 380px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+            animation: float 5s ease-in-out infinite;
+            border: 1px solid rgba(0, 242, 254, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Control HUD */
+        .control-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 14, 26, 0.85);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 14px 24px;
+            backdrop-filter: blur(12px);
+        }
+
+        .btn-ctrl {
+            background: rgba(5, 7, 12, 0.7);
+            border: 1px solid var(--border-glow);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ctrl:hover:not(:disabled) {
+            border-color: var(--cyber-cyan);
+            color: var(--cyber-cyan);
+            box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-ctrl:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .slide-progress-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(148, 163, 184, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--cyber-cyan);
+            box-shadow: 0 0 10px var(--cyber-cyan);
+            transform: scale(1.4);
+        }
+
+        /* Slide Interactive Tools */
+        .slide-tool-box {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(5, 7, 12, 0.9);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Roadmap Viewer CSS */
+        .roadmap-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            max-height: 420px;
+            background: rgba(10, 14, 26, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .roadmap-months {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.15);
+            background: rgba(5, 7, 12, 0.6);
+        }
+
+        .roadmap-tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-secondary);
+            padding: 10px 5px;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .roadmap-tab-btn:hover {
+            color: var(--cyber-cyan);
+            background: rgba(0, 242, 254, 0.03);
+        }
+
+        .roadmap-tab-btn.active {
+            color: var(--cyber-cyan);
+            border-bottom-color: var(--cyber-cyan);
+            background: rgba(0, 242, 254, 0.06);
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.3);
+        }
+
+        .roadmap-body {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .roadmap-weeks {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(0, 242, 254, 0.15);
+            background: rgba(5, 7, 12, 0.3);
+            padding: 8px 0;
+            gap: 4px;
+        }
+
+        .roadmap-week-btn {
+            background: transparent;
+            border: none;
+            border-left: 3px solid transparent;
+            color: var(--text-secondary);
+            padding: 10px 8px;
+            font-family: var(--font-display);
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .roadmap-week-btn:hover {
+            color: var(--cyber-purple);
+            background: rgba(139, 92, 246, 0.03);
+        }
+
+        .roadmap-week-btn.active {
+            color: var(--cyber-purple);
+            border-left-color: var(--cyber-purple);
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .roadmap-days-list {
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+
+        .roadmap-day-card {
+            display: flex;
+            gap: 12px;
+            background: rgba(13, 20, 38, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            padding: 10px 12px;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-day-card:hover {
+            border-color: rgba(0, 242, 254, 0.25);
+            background: rgba(13, 20, 38, 0.7);
+            transform: translateX(2px);
+        }
+
+        .roadmap-day-badge {
+            background: linear-gradient(135deg, var(--cyber-cyan), var(--cyber-purple));
+            color: var(--bg-primary);
+            font-family: var(--font-display);
+            font-size: 9px;
+            font-weight: 800;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.25);
+        }
+
+        .roadmap-day-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .roadmap-day-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .roadmap-day-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Upper Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo-wrap">
+            <svg class="logo-icon" viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.66 0 3 1.34 3 3 0 1.09-.59 2.05-1.48 2.58l.48 2.42h-4l.48-2.42c-.89-.53-1.48-1.49-1.48-2.58 0-1.66 1.34-3 3-3z"/>
+            </svg>
+            <span class="logo-text">The Science of Cyber Security</span>
+        </a>
+        <div class="nav-actions">
+            <a href="search.html" class="btn-nav">🇬🇧 English</a>
+            <a href="ppt.html" class="btn-nav">🇮🇳 Hinglish</a>
+            <a href="marathi.html" class="btn-nav" style="border-color: var(--cyber-cyan); color: var(--cyber-cyan);">🇮🇳 Marathi</a>
+            <button class="btn-nav" id="btn-fullscreen" onclick="toggleFullscreen()">
+                🖥️ Present Mode
+            </button>
+            <a href="index.html" class="btn-nav">
+                Dashboard 🏠
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Slides Area -->
+    <main class="workspace">
+
+        <!-- Slide Frame Container -->
+        <div class="slide-container" id="slide-container">
+            
+            <!-- Left Side: Bullet Points -->
+            <div class="slide-left">
+                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 11</div>
+                <h1 class="slide-title" id="slide-title">Cybersecurity Chi Shuruaat</h1>
+                <div class="slide-subtitle" id="slide-subtitle">Introduction, Domains, ani Careers</div>
+                <ul class="slide-bullets" id="slide-bullets">
+                    <!-- Loaded dynamically -->
+                </ul>
+            </div>
+
+            <!-- Right Side: Graphic/Illustration or Interactive Tool -->
+            <div class="slide-right" id="slide-right-panel">
+                <!-- Loaded dynamically -->
+            </div>
+
+        </div>
+
+        <!-- Navigation HUD -->
+        <div class="control-hud">
+            <button class="btn-ctrl" id="btn-prev" onclick="prevSlide()" disabled>
+                ◀ Previous
+            </button>
+            
+            <div class="slide-progress-dots" id="dots-container">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <button class="btn-ctrl" id="btn-next" onclick="nextSlide()">
+                Next ▶
+            </button>
+        </div>
+
+    </main>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // Simplified Marathi-English slide presentation (11 Slides)
+        const slideDeck = [
+            {
+                title: "Cybersecurity Chi Shuruaat",
+                subtitle: "Introduction, Domains, ani Careers",
+                bullets: [
+                    "Cybersecurity mhanje fakt basic safety tips nahi; ha ek khup motha professional field ahe.",
+                    "Ya presentation madhe aapan pahnaar ahot ki cybersecurity cha khara artha kay ahe pardaachya mage.",
+                    "Aapan vegle job roles jashe ki Ethical Hackers ani Forensic Investigators baddal samjhun ghenaar ahot.",
+                    "Defenders ani investigators computer systems secure sathi kase kaam kartaat, te aapan pahu.",
+                    "Ani career suru karnyasathi aapan ek complete 6-month learning roadmap share karnaar ahot."
+                ],
+                image: "assets/cyber_corp.png"
+            },
+            {
+                title: "Presenter Baddal",
+                subtitle: "Maza Introduction ani Kaam",
+                bullets: [
+                    "**Maza Naav**: Vedant Hondre (Investigator & Ethical Hacker)",
+                    "**Mera Kaam**: Maharashtra Police, Delhi Police ani Haryana Police sobat fraud investigation ani assistance karne.",
+                    "**Maza Experience**: Cyber security ani crime investigations madhe 2 varshancha active field experience.",
+                    "**Key Work**: 100+ peksha jast cyber fraud cases solve kele ahet ani police force la help keli ahe."
+                ],
+                images: [
+                    "assets/vedanthondrewithpolice.jpg",
+                    "assets/2ed306cd-8df7-4d1f-a91c-1724ae7fbdad.jpg",
+                    "assets/cid.jpg",
+                    "assets/delhipolice.jpg",
+                    "assets/mhpolice.jpg",
+                    "assets/vgu.jpg",
+                    "assets/wakadpolice.jpg"
+                ]
+            },
+            {
+                title: "Cybersecurity Kay Ahe?",
+                subtitle: "Locked House (Ghar ani Locks) Chi Goshta",
+                bullets: [
+                    "Cybersecurity mhanje computer, mobile ani internet data la choranpasun (hackers) vaachavne.",
+                    "Yaala aaplya **gharache locks ani CCTV** sarkhe samjha: je aaplyala safety ani protection deta.",
+                    "**C - Secret (Confidentiality)**: Aaple private messages locked thevne jashe ki te koni dusra vachu shaknar nahi.",
+                    "**I - Original (Integrity)**: Aaple photos ani files correct thevne, jeva hacker tya badlu kiwa delete karu shaknar nahi.",
+                    "**A - Active (Availability)**: Jeva hi tumhala game kiwa app chalvayche asel, te instantly open vhave ani hamesha ready rahave."
+                ],
+                image: "assets/cyber_shield.png"
+            },
+            {
+                title: "Cybersecurity Ka Garjechi Ahe?",
+                subtitle: "Aaplya Connected Lives Che Protection",
+                bullets: [
+                    "Aaj aaple phones, smart devices ani cloud accounts hackers che main targets ahet.",
+                    "Ekya cyberattack mule aakhyya city chi electricity, hospitals kiwa bank systems band hou shaktat.",
+                    "Defenders divas-raat kaam karun financial systems, privacy ani everyday services safe thevtaat.",
+                    "Strong security mule lokancha trust banun rahto ani cyber threats pasun aapan vaachto.",
+                    "Modern digital era madhe cybersecurity shikne hi ek mothi social responsibility ahe."
+                ],
+                image: "assets/cyber_mascot.png"
+            },
+            {
+                title: "Cybersecurity Che Fields",
+                subtitle: "Aapan Kontya Area Madhe Specialize Karu Shakta?",
+                bullets: [
+                    "**Network Security**: Routers, Wi-Fi ani internet traffic paths secure ani encrypted banavne.",
+                    "**Application Security**: Apps ani websites cha code check karun bugs bare (fix) karne.",
+                    "**Cloud Security**: AWS, Google Cloud ani Azure jaise servers secure thevne.",
+                    "**Cryptography**: Mathematical codes vaprun sensitive messages scrambled/secret thevne.",
+                    "**Offensive Security**: Legally systems hack karne jashe ki bugs aani problems aadhiach shodhata yetil.",
+                    "**Governance & Compliance (GRC)**: Security policies banavne ani company rules follow karat ahe ka check karne."
+                ],
+                image: "assets/cyber_corp.png"
+            },
+            {
+                title: "Careers: Offensive & Hacking",
+                subtitle: "Hacking ani Investigations",
+                bullets: [
+                    "**Ethical Hacker / Penetration Tester**: Legally network hack karun unche bugs shodhnaara expert.",
+                    "**Application Security Engineer**: Software design ani code check karun apps launch hoinya aadhi bugs fix karnaara developer.",
+                    "**Incident Responder**: Cyberattack zalyavar network safe ani clean karnari emergency response team.",
+                    "**Digital Forensics Analyst**: Hard drives ani systems check karun hacker che footprints shodhnaara detective."
+                ],
+                image: "assets/cyber_detective.png"
+            },
+            {
+                title: "Careers: Defensive & Building",
+                subtitle: "Systems Secure Thevnaare ani Banavnaare",
+                bullets: [
+                    "**SOC Security Analyst**: Real-time networks ani alarms monitor karun cyberattacks block karnaara guard.",
+                    "**Security Architect**: Mothya networks ani corporate systems sathi secure blueprints design karnaara architect.",
+                    "**Cryptographer**: Data encryption sathi complex mathematical algorithms ani keys design karnaara scientist.",
+                    "**GRC Analyst**: Security policies lihinaara ani company security laws follow karte ka te check karnaara compliance expert."
+                ],
+                image: "assets/cyber_threat.png"
+            },
+            {
+                title: "Roadmap: OS Foundations & Networks",
+                subtitle: "Month 1 & 2 Learning Syllabus",
+                bullets: [
+                    "**Month 1: Computer Hardware & OS Basics**: ",
+                    "Computer parts, Virtual machines (VirtualBox) ani Kali Linux system basic passun seekha.",
+                    "**Linux Terminal commands** master kara ani Python program scripting basic pasun suru kara.",
+                    "**Month 2: Computer Networks & Web Mechanics**: ",
+                    "OSI Model, TCP/IP, IP addressing, Subnetting ani core ports chi detail mahiti gya.",
+                    "HTTP requests (GET/POST methods), DNS flows ani HTTPS handshake study kara.",
+                    "**Wireshark** tool download karun network traffic packets capture ani scan karayche te seekha."
+                ],
+                image: "assets/cyber_shield.png"
+            },
+            {
+                title: "Roadmap: Security Core & Web Hacking",
+                subtitle: "Month 3 & 4 Learning Syllabus",
+                bullets: [
+                    "**Month 3: Security Basics & Cryptography**: ",
+                    "Access controls models (RBAC/ABAC), AAA framework ani CIA basics deep-dive kara.",
+                    "Encryption keys, hashing algorithms, salts ani SSL certificates configuration verify kara.",
+                    "Aaple custom virtual systems configure karun self practice vulnerability lab banva.",
+                    "**Month 4: Web Application Security**: ",
+                    "OWASP Top 10 web app vulnerabilities clear concepts study kara.",
+                    "SQL Injection, Command Injection ani XSS vulnerabilities che live execution chalaava.",
+                    "Local practice sathi DVWA lab install karun tests perform kara."
+                ],
+                image: "assets/cyber_corp.png"
+            },
+            {
+                title: "Roadmap: Defense Ops & Practice",
+                subtitle: "Month 5 & 6 Learning Syllabus",
+                bullets: [
+                    "**Month 5: Defensive Operations & Monitoring**: ",
+                    "Firewalls management, IDS rules config ani SIEM logs analytics check karayche seekha.",
+                    "Incident response stages ani disk forensics tool analytics search kara.",
+                    "**Month 6: Active Practice & Career Prep**: ",
+                    "**TryHackMe** ani **PortSwigger Academy** web tasks standard solve kara.",
+                    "Apni coding files Github repository profile pages var publish kara.",
+                    "Mock interview preparations prepare kara ani basic certs (eJPT, Security+) select kara."
+                ],
+                image: "assets/cyber_detective.png"
+            },
+            {
+                title: "Interactive Roadmap Planner",
+                subtitle: "Aapla Day-by-Day Learning Guide",
+                bullets: [
+                    "Right panel var **Month (M1 te M6)** select kara.",
+                    "Selected month cha **Week (Week 1 te 4)** select kara, weekly target baddal mahiti ghenya sathi.",
+                    "Khali **Day 1 te Day 7** che study topics detail madhe vacha.",
+                    "Ha step-by-step syllabus regular follow karun cybersecurity expert bana!"
+                ],
+                tool: "roadmap-viewer"
+            }
+        ];
+
+        // 6-Month Structured Syllabus Database in Marathi-English (Month -> Week -> Days)
+        const roadmapData = {
+            1: {
+                name: "OS & Systems Foundations",
+                weeks: {
+                    1: {
+                        name: "OS & Virtualization Basics",
+                        days: [
+                            { title: "Hardware Basics", desc: "CPU, RAM, Storage ani Motherboard kase kaam kartaat, te samjha." },
+                            { title: "OS Core Concepts", desc: "Operating System basics: Kernel, User Space ani process management seekha." },
+                            { title: "File Systems", desc: "Windows NTFS vs Linux Ext4 ani files permission models study kara." },
+                            { title: "Processes & Services", desc: "OS Processes: Windows background services ani Linux Daemons check kara." },
+                            { title: "Virtualization", desc: "Virtualization: VirtualBox kiwa VMware software setup karayche te seekha." },
+                            { title: "Kali Linux Setup", desc: "Kali Linux Setup: Virtual Machine madhe Kali Linux system install kara." },
+                            { title: "Weekly Challenge", desc: "VM network adapter check (NAT vs Bridged Adapter) configure kara." }
+                        ]
+                    },
+                    2: {
+                        name: "Linux Command Line (CLI)",
+                        days: [
+                            { title: "Linux Commands", desc: "Terminal basics: 'ls', 'cd', 'pwd', 'mkdir' ani 'rm' command seekha." },
+                            { title: "File commands", desc: "File view/edit: 'cat', 'less', 'nano', 'cp' ani 'mv' commands run kara." },
+                            { title: "Permissions", desc: "Access Permissions: 'chmod', 'chown' ani 'sudo' access analyze kara." },
+                            { title: "Package Management", desc: "Packages: 'apt-get' ani 'apt' commands ne software install/update kara." },
+                            { title: "Pipes & Filter", desc: "Filters: 'grep', 'find' ani pipe '|' redirection methods seekha." },
+                            { title: "Process Control", desc: "Process checking: 'ps', 'top', 'kill' ani 'systemctl' use kara." },
+                            { title: "Bandit Lab", desc: "Bandit Lab: OverTheWire Bandit level 0-5 solve karnya cha prayatna kara." }
+                        ]
+                    },
+                    3: {
+                        name: "Windows Admin & CMD",
+                        days: [
+                            { title: "Windows CLI", desc: "Windows CMD, PowerShell commands ani Windows Registry basics." },
+                            { title: "Network CMDs", desc: "CMD diagnostics: 'ipconfig', 'ping', 'netstat' ani 'nslookup' run kara." },
+                            { title: "Access Control (ACL)", desc: "Windows User Accounts ani Local Security Policies study kara." },
+                            { title: "Event Viewer", desc: "Windows Logs: Event Viewer check karun alert aur error logs parse kara." },
+                            { title: "Active Directory", desc: "Active Directory: AD Domains, OUs ani GPOs system architecture samjha." },
+                            { title: "PowerShell Scripting", desc: "PowerShell basics: Variables, loops ani basic cmdlets code kara." },
+                            { title: "Automation Lab", desc: "PowerShell Lab: Ek simple automated file backup script compose kara." }
+                        ]
+                    },
+                    4: {
+                        name: "Python Scripting Basics",
+                        days: [
+                            { title: "Python Setup", desc: "Python installation ani basic 'Hello World' file execute kara." },
+                            { title: "Variables & Types", desc: "Data types: String, Integer, Float, List ani Dictionary syntax seekha." },
+                            { title: "Control Flow", desc: "Loops ani logical statements (if-else, for loop, while loop) seekha." },
+                            { title: "Functions & Modules", desc: "Functions: def functions lihine ani modules import karne." },
+                            { title: "File Handling", desc: "File I/O: Scripts ne text files open, read ani write kara." },
+                            { title: "JSON Parsing", desc: "Python parsing: JSON payloads ani key-values extract karne." },
+                            { title: "Scripting Lab", desc: "Python scan lab: Ek auto-ping tool script lihina jo hosts check karel." }
+                        ]
+                    }
+                }
+            },
+            2: {
+                name: "Networking & Web Architecture",
+                weeks: {
+                    1: {
+                        name: "Networking & OSI Model",
+                        days: [
+                            { title: "OSI vs TCP/IP Models", desc: "OSI Model che 7 layers ani data packets transfer honechi theory." },
+                            { title: "IP Addressing", desc: "IP Addressing: IPv4 Subnetting, CIDR ani Public vs Private IPs." },
+                            { title: "MAC & ARP", desc: "Layer 2: MAC physical address ani ARP address resolution protocol." },
+                            { title: "TCP vs UDP", desc: "TCP 3-way handshake vs UDP connectionless protocol." },
+                            { title: "Ports & Services", desc: "Common Ports: port 80, 443, 22, 53, 21, 445 ani ports mapping." },
+                            { title: "Routing & Gateways", desc: "Gateways: Routers kase networks madhe data pass kartaat." },
+                            { title: "Diagnostics Lab", desc: "Diagnostics: 'traceroute' / 'tracert' run karun connection path mapping kara." }
+                        ]
+                    },
+                    2: {
+                        name: "DNS & Web Mechanics",
+                        days: [
+                            { title: "How Web Servers Work", desc: "Client browser, DNS servers, API servers ani Database relationship." },
+                            { title: "DNS Resolution Flow", desc: "DNS lookup process: root name servers ani DNS record types." },
+                            { title: "HTTP Request Format", desc: "HTTP requests: GET, POST methods ani header headers." },
+                            { title: "HTTP Response Status", desc: "HTTP responses status: 200 OK, 301, 404, 500 errors." },
+                            { title: "Sessions & Cookies", desc: "Stateless HTTP madhe session tokens ani cookies user tracking logic." },
+                            { title: "HTTPS & SSL/TLS", desc: "Encrypted connection handshake ani SSL certificates verify karne." },
+                            { title: "DevTools Lab", desc: "DevTools Lab: Browser F12 Network tab madhe requests inspect kara." }
+                        ]
+                    },
+                    3: {
+                        name: "Network Traffic Analysis",
+                        days: [
+                            { title: "Wireshark Intro", desc: "Wireshark install kara ani local interface traffic verify kara." },
+                            { title: "Packet Sniffing", desc: "Live packets capture karne ani PCAP files open karne." },
+                            { title: "Display Filters", desc: "Wireshark filter syntax: 'ip.addr', 'tcp.port' filter check." },
+                            { title: "TCP Stream Reassembly", desc: "Follow TCP stream karun HTTP packet clear reads analyze kara." },
+                            { title: "Cleartext Leak Analysis", desc: "HTTP/FTP traffic packet madhe plaintext credentials theft audit." },
+                            { title: "ICMP & ARP Inspections", desc: "Network broadcast packets ani ping sweeps mapping scan monitor." },
+                            { title: "Pcap Challenge Lab", desc: "PCAP Lab: Diye pcap file check karun security keys identify kara." }
+                        ]
+                    },
+                    4: {
+                        name: "Port Scanning & Recon",
+                        days: [
+                            { title: "Reconnaissance Concepts", desc: "Active vs Passive reconnaissance (Recon) methods detail study." },
+                            { title: "Nmap Basics", desc: "Nmap download kara ani loopback interfaces scan test kara." },
+                            { title: "TCP Scan Techniques", desc: "SYN scan (-sS) vs TCP Connect scan (-sT) differences." },
+                            { title: "UDP Scanning", desc: "UDP port scanning protocols check ani scan metrics." },
+                            { title: "Service & OS Detection", desc: "Service version scan (-sV) ani OS configuration detection (-O)." },
+                            { title: "Scripting Engine (NSE)", desc: "Nmap Scripting Engine: NSE scripts ne vulnerabilities check karne." },
+                            { title: "Nmap Lab", desc: "Nmap Lab: Target virtual VM scan detail compile doc report." }
+                        ]
+                    }
+                }
+            },
+            3: {
+                name: "Security Fundamentals & Crypto",
+                weeks: {
+                    1: {
+                        name: "Security Concepts & CIA Triad",
+                        days: [
+                            { title: "The CIA Triad", desc: "Confidentiality, Integrity ani Availability core definition analysis." },
+                            { title: "Auth Frameworks", desc: "AAA framework: Identification, Authentication ani Authorization processes." },
+                            { title: "Access Control Models", desc: "RBAC (Role-based), ABAC (Attribute-based) access validation check." },
+                            { title: "Principle of Least Privilege", desc: "Users la limited access permissions dene system context." },
+                            { title: "Multi-Factor Auth (MFA)", desc: "MFA protocols: OTP, TOTP tokens aur authenticators check." },
+                            { title: "Threat Modeling Basics", desc: "Threat modeling basics: Assets, risk factor ani STRIDE matrix." },
+                            { title: "Threat Analysis Lab", desc: "Risk Lab: Start-up company design check holes write report." }
+                        ]
+                    },
+                    2: {
+                        name: "Symmetric & Asymmetric Crypto",
+                        days: [
+                            { title: "Crypto History", desc: "Classic cryptography: Caesar Cipher, ROT13 historical codes." },
+                            { title: "Symmetric Key Ciphers", desc: "Symmetric key encryption: AES and DES standards keys sharing." },
+                            { title: "Asymmetric Public Key", desc: "Asymmetric key: Public & Private Key relationship logic." },
+                            { title: "Diffie-Hellman Exchange", desc: "Key negotiation math over public channels safely." },
+                            { title: "Symmetric vs Asymmetric", desc: "Performance speeds ani keys delivery issues difference." },
+                            { title: "Hybrid Encryption", desc: "SSL/TLS systems madhe asymmetric ani symmetric algorithms compile." },
+                            { title: "GPG File Crypt Lab", desc: "GPG Lab: GnuPG tool run karun file payload encrypt/decrypt." }
+                        ]
+                    },
+                    3: {
+                        name: "Hashes & Digital Certificates",
+                        days: [
+                            { title: "Hashing Mechanics", desc: "MD5, SHA-1, SHA-256 mathematical algorithm properties." },
+                            { title: "Password Salting", desc: "Database passwords protection salts ani Bcrypt concepts." },
+                            { title: "Digital Signatures", desc: "Digital signatures verification: authenticity ani data security." },
+                            { title: "Public Key Infra (PKI)", desc: "Root CAs (Certificate Authorities) trust validation architecture." },
+                            { title: "HTTPS Handshakes", desc: "Web browser certificates trust chain mapping verify." },
+                            { title: "Crypto Hashes in Git/Linux", desc: "Files integrity checks check via mathematical checksums." },
+                            { title: "Checksum Verify Lab", desc: "Checksum Lab: Software download verify downloads hashes." }
+                        ]
+                    },
+                    4: {
+                        name: "Crypto Vulnerabilities & Attacks",
+                        days: [
+                            { title: "Weak Algorithms", desc: "Deprecated ciphers: MD5 collision, WEP wifi security leaks." },
+                            { title: "Man-in-the-Middle (MitM)", desc: "MitM attack: ARP spoofing, networks packages interception." },
+                            { title: "Brute Force Attacks", desc: "Keys cracking scripts execution speed check dictionaries." },
+                            { title: "Entropy & Randomness", desc: "Weak random numbers math keys prediction security flaws." },
+                            { title: "Replay Attacks", desc: "Packet capturing replay data loops nonces blocks." },
+                            { title: "Frequency Analysis", desc: "Substitution ciphers decryptions counting alphabet stats." },
+                            { title: "Cipher Decrypt Lab", desc: "Crack Lab: Decrypt classic ciphers codes puzzle analysis." }
+                        ]
+                    }
+                }
+            },
+            4: {
+                name: "Web Application Security",
+                weeks: {
+                    1: {
+                        name: "Web App Architecture & OWASP",
+                        days: [
+                            { title: "Web App Stack", desc: "Web architecture: JS Client, server backend, APIs databases." },
+                            { title: "OWASP Top 10 Intro", desc: "OWASP Foundation standard web vulnerability guidelines." },
+                            { title: "Broken Access Control", desc: "URL authorization gaps access check unauthorized panels." },
+                            { title: "Cryptographic Failures", desc: "Plaintext database tables entries leaks threat vectors." },
+                            { title: "Injection Flaws overview", desc: "Command injection, SQL Injection aur LDAP threats mechanics." },
+                            { title: "DVWA Installation", desc: "Virtual machine DVWA (Damn Vulnerable Web App) download run." },
+                            { title: "Access Control Lab", desc: "Access parameters change get details mock dashboard." }
+                        ]
+                    },
+                    2: {
+                        name: "SQL Injection (SQLi) in Depth",
+                        days: [
+                            { title: "SQL Refresher", desc: "SQL DB SELECT statements, WHERE, UNION queries syntax." },
+                            { title: "Error-Based SQLi", desc: "Database error structures generate leak metadata." },
+                            { title: "Union-Based SQLi", desc: "UNION query injection database tables fetch sensitive details." },
+                            { title: "Blind SQLi Mechanics", desc: "Boolean True/False check, database delay sleep queries." },
+                            { title: "Prepared Statements", desc: "Prepared statements parameterizations secure query design." },
+                            { title: "SQLMap Automation", desc: "SQLMap automatic porting scan details database dump." },
+                            { title: "DVWA SQL Injection Lab", desc: "DVWA low/medium SQLi select categories compile test." }
+                        ]
+                    },
+                    3: {
+                        name: "Cross-Site Scripting (XSS)",
+                        days: [
+                            { title: "XSS Vulnerabilities", desc: "Client side JavaScript tag injection input boxes." },
+                            { title: "Stored XSS", desc: "JavaScript payload saves databases target visitors alerts." },
+                            { title: "Reflected XSS", desc: "URL parameter parameters script redirection phishing links." },
+                            { title: "DOM-Based XSS", desc: "Direct browser local context variables manipulate javascript." },
+                            { title: "XSS Consequences", desc: "Cookie theft target hijack sessions redirects defacing." },
+                            { title: "XSS Defenses", desc: "Input sanitization validation, HTML encoding, CSP headers." },
+                            { title: "XSS Exploitation Lab", desc: "DVWA Low XSS: Steal test cookies javascript alert payload." }
+                        ]
+                    },
+                    4: {
+                        name: "Authentication & Session Flaws",
+                        days: [
+                            { title: "Password Bruteforcing", desc: "Dictionary automated scripts lockouts validation checks." },
+                            { title: "Session Hijacking", desc: "Session ID parameters cookie theft sniffing session vectors." },
+                            { title: "IDOR Vulnerabilities", desc: "IDOR: parameter value modifications access other user data." },
+                            { title: "CSRF Attacks", desc: "CSRF: Fake server requests anti-CSRF token verification." },
+                            { title: "Secure Cookie Flags", desc: "HttpOnly, Secure, SameSite cookie flags security standards." },
+                            { title: "API Security Flaws", desc: "REST API paths diagnostics unauthenticated endpoints leak." },
+                            { title: "IDOR Exploitation Lab", desc: "IDOR Lab: Invoice ID modification access test invoices." }
+                        ]
+                    }
+                }
+            },
+            5: {
+                name: "Defense Ops & System Security",
+                weeks: {
+                    1: {
+                        name: "System Security & Exploitation",
+                        days: [
+                            { title: "OS Memory Security", desc: "Memory buffers: Stack, Heap and CPU registers EIP pointers." },
+                            { title: "Buffer Overflow Theory", desc: "Buffer crash input codes execution hijack processes instructions." },
+                            { title: "Privilege Escalation", desc: "Low level user access rights escalation administrators root level." },
+                            { title: "Metasploit Framework", desc: "Metasploit architecture: Exploits payloads and console commands." },
+                            { title: "Exploit Databases", desc: "Legal public exploits portals Exploit-DB CVE logs tracking." },
+                            { title: "Maintaining Access", desc: "Persistence mechanisms: Backdoors, trojans installation settings." },
+                            { title: "Metasploit Exploit Lab", desc: "Metasploit exploit run against local safe VM get shell." }
+                        ]
+                    },
+                    2: {
+                        name: "Firewalls, IDS & IPS",
+                        days: [
+                            { title: "Firewall Mechanics", desc: "Stateless packet filtering vs stateful firewall inspections." },
+                            { title: "Next-Gen Firewalls (NGFW)", desc: "Deep packet inspections Application Layer 7 rules settings." },
+                            { title: "IDS vs IPS Systems", desc: "Intrusion Detection (alert warnings) vs Intrusion Prevention (active drop)." },
+                            { title: "Snort Rules", desc: "Snort rule syntax target alerts warnings triggers write." },
+                            { title: "NAT & DMZ Architecture", desc: "DMZ Zone design: Public network isolated from internal corporate LAN." },
+                            { title: "VPN Technologies", desc: "VPN tunnels: IPsec, OpenVPN protocols aur WireGuard basics." },
+                            { title: "Linux Firewall Lab", desc: "Firewall Lab: Linux IPTables / UFW block allow specific ports." }
+                        ]
+                    },
+                    3: {
+                        name: "SOC Analyst Operations",
+                        days: [
+                            { title: "Security Operations Center", desc: "SOC workflows: Alerts triage analysis escalation incident reports." },
+                            { title: "SIEM Concepts", desc: "SIEM logs database aggregation Elasticsearch splunk dashboards." },
+                            { title: "Log Analysis Fundamentals", desc: "Logs parsing: Web servers (Apache) aur linux auth logs check." },
+                            { title: "Correlation Rules", desc: "Spikes rule write: multiple failed authentication alerts same IP." },
+                            { title: "Threat Intelligence", desc: "Threat feeds: IP blocklists domains reputations feeds mapping." },
+                            { title: "Threat Hunting", desc: "Proactive log scanning detect hidden threats inside system logs." },
+                            { title: "SOC Log Triage Lab", desc: "SOC Lab: web servers logs check traversal attack blocked." }
+                        ]
+                    },
+                    4: {
+                        name: "Incident Response & Forensics",
+                        days: [
+                            { title: "Incident Lifecycle", desc: "SANS Incident Response lifecycle containment eradication recovery." },
+                            { title: "Memory (RAM) Forensics", desc: "Volatile data analysis extract keys running process logs." },
+                            { title: "Disk Forensics", desc: "Disk forensics: 'dd' command block copy create MD5 hashes." },
+                            { title: "Volatility Tool", desc: "Volatility parse RAM dump print processes stack details." },
+                            { title: "Chain of Custody", desc: "Evidence handling standards for court integrity admissibility." },
+                            { title: "Malware Analysis Basics", desc: "Static analysis: strings dumps file hashes hashes values." },
+                            { title: "Forensics Challenge Lab", desc: "Forensics Lab: inspect memory image trace malicious PID processes." }
+                        ]
+                    }
+                }
+            },
+            6: {
+                name: "Active Labs & Career Prep",
+                weeks: {
+                    1: {
+                        name: "TryHackMe Practical Labs",
+                        days: [
+                            { title: "TryHackMe Registration", desc: "TryHackMe account create, OpenVPN configuration installation." },
+                            { title: "Pre-Security Path", desc: "Pre-security learning track modules networks Linux basic rooms." },
+                            { title: "Intro to Cyber Security", desc: "Basic web hack simulations, system access tryhackme rooms." },
+                            { title: "Bandit Practice", desc: "OverTheWire Bandit levels 6 to 15 solve linux CLI tasks." },
+                            { title: "Attacking a Basic Box", desc: "CTF box: Scan, search exploit, target system get root flags." },
+                            { title: "CTF Walkthroughs", desc: "CTF walk-through reports study log commands tools syntax." },
+                            { title: "TryHackMe CTF Lab", desc: "THM Lab: Complete a beginner easy room challenge machine." }
+                        ]
+                    },
+                    2: {
+                        name: "PortSwigger Web Academy",
+                        days: [
+                            { title: "Burp Suite Registration", desc: "Burp Suite Community Edition installation interface basics." },
+                            { title: "Burp Proxy Config", desc: "Browser proxy configurations redirect data loops Burp intercept." },
+                            { title: "Burp Repeater", desc: "Burp repeater run modify request HTTP packets parameters." },
+                            { title: "SQLi Labs Practice", desc: "PortSwigger Academy: entry levels SQL Injection labs solve." },
+                            { title: "XSS Labs Practice", desc: "PortSwigger Academy: entry levels Cross Site Scripting labs solve." },
+                            { title: "Access Control Labs", desc: "PortSwigger Academy: entry levels access validation logs solve." },
+                            { title: "PortSwigger Lab", desc: "Burp Proxy Lab: Solve 3 apprentice academy labs targets." }
+                        ]
+                    },
+                    3: {
+                        name: "Building Security Portfolio",
+                        days: [
+                            { title: "Home Lab Planning", desc: "Local VM target design mappings (Kali Linux + Metasploitable)." },
+                            { title: "Vulnerable Targets", desc: "Vulnhub target images import inside hypervisor bridge networking." },
+                            { title: "Git Portfolio Setup", desc: "Create a Github profile upload automation scanning tools scripts." },
+                            { title: "Write-up Documentation", desc: "CTF machines logs step-by-step reports formatting pictures." },
+                            { title: "Automation Scripts", desc: "Python scanning automation script compose automate lookups." },
+                            { title: "Github Profiling", desc: "README profile highlights certifications marks THM ranks." },
+                            { title: "Home Lab Setup Lab", desc: "Host-only network design run Kali attacker Target VM server." }
+                        ]
+                    },
+                    4: {
+                        name: "Certifications & Interviews",
+                        days: [
+                            { title: "Cyber Certifications", desc: "Beginner level certs explore: CompTIA Security+, eJPT, CEH." },
+                            { title: "Resume Building", desc: "Build security resume showcase home lab Git logs THM stats." },
+                            { title: "Technical Prep", desc: "Technical QA: TCP ports, SQL injection patches, hashing symmetric." },
+                            { title: "Behavioral Questions", desc: "Ethical frameworks vulnerability disclosure security guidelines." },
+                            { title: "CTF Platforms", desc: "CTFtime calendar events check join college teams." },
+                            { title: "LinkedIn Networking", desc: "LinkedIn profile setups join active security developer channels." },
+                            { title: "Mock Interview Lab", desc: "Interview Lab: Self test top 20 junior security engineer questions." }
+                        ]
+                    }
+                }
+            }
+        };
+
+        // Roadmap State Variables & Event Handlers
+        let selectedMonth = 1;
+        let selectedWeek = 1;
+
+        function selectRoadmapMonth(m) {
+            selectedMonth = m;
+            selectedWeek = 1; // reset to week 1 of new month
+            
+            // Update Month buttons active state
+            const monthBtns = document.querySelectorAll('.roadmap-tab-btn');
+            monthBtns.forEach((btn, index) => {
+                if (index + 1 === m) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update Week buttons UI
+            renderWeekButtons();
+            // Render days
+            renderRoadmapDays();
+        }
+
+        function selectRoadmapWeek(w) {
+            selectedWeek = w;
+            
+            // Update Week buttons active state
+            const weekBtns = document.querySelectorAll('.roadmap-week-btn');
+            weekBtns.forEach((btn, index) => {
+                if (index + 1 === w) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            renderRoadmapDays();
+        }
+
+        function renderWeekButtons() {
+            const container = document.querySelector('.roadmap-weeks');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            for (let w = 1; w <= 4; w++) {
+                const btn = document.createElement('button');
+                btn.className = `roadmap-week-btn ${w === selectedWeek ? 'active' : ''}`;
+                btn.innerText = `Week ${w}`;
+                btn.onclick = () => selectRoadmapWeek(w);
+                container.appendChild(btn);
+            }
+        }
+
+        function renderRoadmapDays() {
+            const container = document.getElementById('roadmap-days-content');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const weekData = roadmapData[selectedMonth].weeks[selectedWeek];
+            
+            // Set a header explaining what this week is about
+            const weekHeader = document.createElement('div');
+            weekHeader.style.cssText = 'font-size:12px; font-weight:700; color:var(--cyber-purple); border-bottom:1px solid rgba(139, 92, 246, 0.2); padding-bottom:6px; margin-bottom:12px; font-family:var(--font-display);';
+            weekHeader.innerText = `FOCUS: ${weekData.name.toUpperCase()}`;
+            container.appendChild(weekHeader);
+            
+            weekData.days.forEach((day, index) => {
+                const card = document.createElement('div');
+                card.className = 'roadmap-day-card';
+                
+                card.innerHTML = `
+                    <div class="roadmap-day-badge">D${index + 1}</div>
+                    <div class="roadmap-day-info">
+                        <div class="roadmap-day-title">${day.title}</div>
+                        <div class="roadmap-day-desc">${day.desc}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        let currentSlideIndex = 0;
+
+        // Render current slide deck content
+        function renderSlide() {
+            // Clear any running profile slideshow interval
+            if (window.profileSlideshowInterval) {
+                clearInterval(window.profileSlideshowInterval);
+                window.profileSlideshowInterval = null;
+            }
+
+            const slide = slideDeck[currentSlideIndex];
+            
+            // Slide indicators
+            document.getElementById('slide-indicator').innerText = `Slide ${String(currentSlideIndex + 1).padStart(2, '0')} of ${String(slideDeck.length).padStart(2, '0')}`;
+            document.getElementById('slide-title').innerHTML = slide.title;
+            document.getElementById('slide-subtitle').innerHTML = slide.subtitle;
+
+            // Load bullet points
+            const bulletsUl = document.getElementById('slide-bullets');
+            bulletsUl.innerHTML = '';
+            slide.bullets.forEach(bullet => {
+                const li = document.createElement('li');
+                // Convert markdown ** to <strong> to remove stars and make text bold
+                li.innerHTML = bullet.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                bulletsUl.appendChild(li);
+            });
+
+            // Handle slide media/tools
+            const rightPanel = document.getElementById('slide-right-panel');
+            rightPanel.innerHTML = '';
+
+            if (slide.tool) {
+                rightPanel.appendChild(createToolMarkup(slide.tool));
+                
+                // Active scripts bindings
+                if (slide.tool === 'roadmap-viewer') {
+                    // Initialize the roadmap viewer
+                    selectRoadmapMonth(1);
+                }
+            } else if (slide.images && slide.images.length > 0) {
+                const img = document.createElement('img');
+                img.src = slide.images[0];
+                img.alt = slide.title;
+                img.className = 'slide-media';
+                img.style.transition = 'opacity 0.4s ease-in-out';
+                rightPanel.appendChild(img);
+
+                let imgIndex = 0;
+                window.profileSlideshowInterval = setInterval(() => {
+                    img.style.opacity = 0;
+                    setTimeout(() => {
+                        imgIndex = (imgIndex + 1) % slide.images.length;
+                        img.src = slide.images[imgIndex];
+                        img.style.opacity = 1;
+                    }, 400);
+                }, 3000);
+            } else if (slide.image) {
+                const img = document.createElement('img');
+                img.src = slide.image;
+                img.alt = slide.title;
+                img.className = 'slide-media';
+                rightPanel.appendChild(img);
+            }
+
+            // Control HUD bindings
+            document.getElementById('btn-prev').disabled = (currentSlideIndex === 0);
+            document.getElementById('btn-next').disabled = (currentSlideIndex === slideDeck.length - 1);
+
+            updateDots();
+        }
+
+        // Generate tool nodes inside slides
+        function createToolMarkup(toolName) {
+            const div = document.createElement('div');
+            div.className = 'slide-tool-box';
+
+            if (toolName === 'roadmap-viewer') {
+                div.className = 'roadmap-container';
+                div.innerHTML = `
+                    <!-- Month Selection Header -->
+                    <div class="roadmap-months">
+                        <button class="roadmap-tab-btn active" onclick="selectRoadmapMonth(1)">M1</button>
+                        <button class="roadmap-tab-btn" onclick="selectRoadmapMonth(2)">M2</button>
+                        <button class="roadmap-tab-btn" onclick="selectRoadmapMonth(3)">M3</button>
+                        <button class="roadmap-tab-btn" onclick="selectRoadmapMonth(4)">M4</button>
+                        <button class="roadmap-tab-btn" onclick="selectRoadmapMonth(5)">M5</button>
+                        <button class="roadmap-tab-btn" onclick="selectRoadmapMonth(6)">M6</button>
+                    </div>
+                    
+                    <div class="roadmap-body">
+                        <!-- Week Selection Side Panel -->
+                        <div class="roadmap-weeks">
+                            <!-- Populated dynamically -->
+                        </div>
+                        
+                        <!-- Day Content Area -->
+                        <div class="roadmap-days-list" id="roadmap-days-content">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                `;
+            }
+
+            return div;
+        }
+
+        // Initialize progress bar tracker dots
+        function initDots() {
+            const container = document.getElementById('dots-container');
+            container.innerHTML = '';
+            slideDeck.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `progress-dot ${index === 0 ? 'active' : ''}`;
+                dot.onclick = () => jumpToSlide(index);
+                container.appendChild(dot);
+            });
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                if (index === currentSlideIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slideDeck.length - 1) {
+                currentSlideIndex++;
+                renderSlide();
+            }
+        }
+
+        // Previous slide handler
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                renderSlide();
+            }
+        }
+
+        function jumpToSlide(index) {
+            currentSlideIndex = index;
+            renderSlide();
+        }
+
+        // Navigation keyboard binds
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Fullscreen handles
+        function toggleFullscreen() {
+            const isFS = document.body.classList.toggle('fullscreen-presentation');
+            const btn = document.getElementById('btn-fullscreen');
+            if (isFS) {
+                btn.innerText = '❌ Exit Present Mode';
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                }
+            } else {
+                btn.innerText = '🖥️ Present Mode';
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Execute initialization immediately since script is at the end of the body
+        initDots();
+        renderSlide();
+    </script>
+</body>
+
+</html>
