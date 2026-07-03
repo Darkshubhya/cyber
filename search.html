@@ -194,12 +194,14 @@
                 gap: 12px;
                 text-align: center;
             }
+
             .nav-actions {
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 8px;
                 width: 100%;
             }
+
             .btn-nav {
                 padding: 6px 12px;
                 font-size: 10px;
@@ -210,17 +212,21 @@
             .slide-left {
                 padding: 24px;
             }
+
             .slide-title {
                 font-size: 22px;
             }
+
             .slide-subtitle {
                 font-size: 11.5px;
                 margin-bottom: 16px;
             }
+
             .slide-bullets li {
                 font-size: 13px;
                 padding-left: 20px;
             }
+
             .slide-bullets li::before {
                 font-size: 11px;
             }
@@ -230,10 +236,12 @@
             .control-hud {
                 padding: 10px 14px;
             }
+
             .btn-ctrl {
                 padding: 8px 12px;
                 font-size: 9px;
             }
+
             .progress-dot {
                 width: 5px;
                 height: 5px;
@@ -781,7 +789,7 @@
 
             <!-- Left Side: Bullet Points -->
             <div class="slide-left">
-                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 12</div>
+                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 10</div>
                 <h1 class="slide-title" id="slide-title">Welcome to Cybersecurity!</h1>
                 <div class="slide-subtitle" id="slide-subtitle">How to Protect Our Digital World</div>
                 <ul class="slide-bullets" id="slide-bullets">
@@ -825,8 +833,7 @@
                     "Cybersecurity is not just about basic safety rules; it is a massive professional field.",
                     "In this presentation, we will explore what cybersecurity really means under the hood.",
                     "We will look at the different career roles like Ethical Hackers and Forensic Investigators.",
-                    "We will see how defenders and investigators work together to secure digital infrastructure.",
-                    "Finally, we will share a complete 6-month roadmap to help you build your career."
+                    "We will see how defenders and investigators work together to secure digital infrastructure."
                 ],
                 image: "assets/cyber_corp.png"
             },
@@ -859,24 +866,18 @@
             },
             {
                 title: "What is Cybersecurity?",
-                subtitle: "The Locked House Analogy",
+                subtitle: "Computer, Mobile, and Our Safety",
                 bullets: [
-                    "Think of your computer or phone like a **secured house** with locks and CCTV.",
-                    "Just like locking doors protects your home, cybersecurity keeps your devices safe.",
-                    "**C - Secret (Confidentiality)**: Keeping your private chats locked so only you can read them.",
-                    "**I - Original (Integrity)**: Making sure no hacker can change, damage, or delete your files.",
-                    "**A - Active (Availability)**: Making sure your apps and games open instantly whenever you need them."
+                    "**What is Cybersecurity?**: Keeping your computer, files, accounts, and private details safe from hackers.",
+                    "**C - Secret (Confidentiality)**: Keeping passwords and OTPs secret so nobody can read your private messages.",
+                    "**I - Original (Integrity)**: Securing files and profile settings so hackers cannot modify, change, or delete them.",
+                    "**A - Active (Availability)**: Making sure game servers and apps run smoothly and open instantly when clicked."
                 ],
                 image: "assets/cyber_shield.png",
                 notes: `
                     <strong>How to Present this Slide (Speak for 3-4 minutes):</strong>
                     <ul>
-                        <li><strong>House Analogy:</strong>
-                            <br>• <em>Locked Doors & Windows:</em> Device passwords and network firewalls.
-                            <br>• <em>Security CCTV:</em> Real-time threat detection alerts.
-                            <br>• <em>Private Safes:</em> Encrypted file folders.
-                        </li>
-                        <li><strong>CIA Triad:</strong> Explain Confidentiality (locked chats), Integrity (no file corruption), and Availability (uninterrupted gaming/work).</li>
+                        <li>Focus on keeping messages secret (C), keeping data from being edited by hackers (I), and keeping gaming servers/utility apps up and running (A) so they open instantly.</li>
                     </ul>
                 `
             },
@@ -899,6 +900,23 @@
                 `
             },
             {
+                title: "Types of Hackers",
+                subtitle: "White Hat, Black Hat, and Grey Hat",
+                bullets: [
+                    "**White Hat (Ethical Hackers)**: The Good Guys! They hack legally with permission to find vulnerabilities and secure systems.",
+                    "**Black Hat (Cybercriminals)**: The Bad Guys! They hack illegally without permission to steal private data or demand money.",
+                    "**Grey Hat (The In-Between)**: They hack without permission to find bugs, but without harmful intent. They inform owners to fix them.",
+                    "**Lesson for students**: Always choose to be a White Hat! Legal and helpful security work is a great career."
+                ],
+                image: "assets/cyber_detective.png",
+                notes: `
+                    <strong>How to Present this Slide (Speak for 3 minutes):</strong>
+                    <ul>
+                        <li>Explain the hacker hats color coding. White Hat = Good/Ethical, Black Hat = Bad/Criminal, Grey Hat = In-between hobbyist. Emphasize that being a White Hat is the legal and highly rewarded path.</li>
+                    </ul>
+                `
+            },
+            {
                 title: "Different Parts of Cybersecurity",
                 subtitle: "Where Can You Work?",
                 bullets: [
@@ -910,15 +928,14 @@
                 ],
                 image: "assets/cyber_corp.png",
                 notes: `
-                    <strong>How to Present this Slide (Speak for 4 minutes):</strong>
+                    <strong>How to Present this Slide (Speak for 3 minutes):</strong>
                     <ul>
-                        <li><strong>Breadth of Security:</strong> Emphasize that cybersecurity is not a single job. It has multiple specialized departments.</li>
-                        <li><strong>Examples:</strong> Explain that a Cryptographer focuses on advanced math, while a GRC Analyst focuses on policy and law.</li>
+                        <li>Briefly introduce each security domain and explain how they build different layers of safety.</li>
                     </ul>
                 `
             },
             {
-                title: "Hacking and Investigating Jobs",
+                title: "Careers: Offensive & Investigative",
                 subtitle: "Ethical Hackers and Detectives",
                 bullets: [
                     "**Ethical Hacker**: Legally tests systems to find bugs before attackers do.",
@@ -930,12 +947,12 @@
                 notes: `
                     <strong>How to Present this Slide (Speak for 4 minutes):</strong>
                     <ul>
-                        <li><strong>Offensive vs Investigative:</strong> Ethical hackers run scans and write exploits to test company walls. Forensics analysts act like crime scene investigators, parsing system logs and disk images to find the culprit's footsteps.</li>
+                        <li>Ethical Hacking is legal hacking to solve bugs. Forensics collects footprints after a hack.</li>
                     </ul>
                 `
             },
             {
-                title: "Defending and Building Jobs",
+                title: "Careers: Defensive & Architecture",
                 subtitle: "SOC Analysts and Architects",
                 bullets: [
                     "**SOC Analyst**: Watches security screens and blocks attacks in real-time.",
@@ -947,64 +964,7 @@
                 notes: `
                     <strong>How to Present this Slide (Speak for 3-4 minutes):</strong>
                     <ul>
-                        <li><strong>Defensive Roles:</strong> Explain that defenders are crucial. Without them, a company's systems would fall in hours. A Security Architect is like a city planner who builds bridges and locks, while a SOC Analyst is the guard on the watchtower.</li>
-                    </ul>
-                `
-            },
-            {
-                title: "Study Roadmap: Month 1 & 2",
-                subtitle: "System Foundations & Networking",
-                bullets: [
-                    "**Month 1: Computer & OS Basics**: ",
-                    "Learn how computers work, set up virtual systems, and learn Linux commands.",
-                    "Start learning Python programming to automate simple tasks.",
-                    "**Month 2: Networking & Internet Basics**: ",
-                    "Learn how data travels on the internet, IP addresses, ports, and DNS.",
-                    "Capture and check network packets using a free tool called **Wireshark**."
-                ],
-                image: "assets/cyber_shield.png",
-                notes: `
-                    <strong>How to Present this Slide (Speak for 4 minutes):</strong>
-                    <ul>
-                        <li><strong>Foundations:</strong> Explain that to protect systems, you first have to understand how they talk and run. Month 1 and 2 focus on basic OS commands and networking.</li>
-                    </ul>
-                `
-            },
-            {
-                title: "Study Roadmap: Month 3 & 4",
-                subtitle: "Security Core & Web Hacking",
-                bullets: [
-                    "**Month 3: Security Basics & Cryptography**: ",
-                    "Learn access rules, encryption keys, and digital certificates.",
-                    "Set up your own virtual systems to practice security tests safely.",
-                    "**Month 4: Web Application Security**: ",
-                    "Learn the most common web security errors (OWASP Top 10 rules).",
-                    "Learn how web hacks work and practice them legally on training apps."
-                ],
-                image: "assets/cyber_corp.png",
-                notes: `
-                    <strong>How to Present this Slide (Speak for 4 minutes):</strong>
-                    <ul>
-                        <li><strong>Security Core:</strong> Explaining that Month 3 and 4 move into core security concepts and web-specific vulnerabilities. Learning to exploit web platforms is the best gateway to security research.</li>
-                    </ul>
-                `
-            },
-            {
-                title: "Study Roadmap: Month 5 & 6",
-                subtitle: "Defense Operations & Practice",
-                bullets: [
-                    "**Month 5: Defensive Operations**: ",
-                    "Learn how firewalls and monitoring software block attacks.",
-                    "Learn basic forensics to investigate how computers were hacked.",
-                    "**Month 6: Practice & Career Preparation**: ",
-                    "Solve security puzzles on free lab websites like **TryHackMe**.",
-                    "Build a list of your code projects on GitHub and prepare for beginner interviews."
-                ],
-                image: "assets/cyber_detective.png",
-                notes: `
-                    <strong>How to Present this Slide (Speak for 4 minutes):</strong>
-                    <ul>
-                        <li><strong>Defensive Ops & Careers:</strong> Explain that Month 5 and 6 teach how corporate defenders operate. Setting up a Git portfolio of tools helps secure interviews and show practical skills.</li>
+                        <li>Defenders keep networks secure 24/7. SOC watches alerts. Architects design secure networks.</li>
                     </ul>
                 `
             },
