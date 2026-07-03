@@ -568,6 +568,96 @@
             color: var(--text-secondary);
             line-height: 1.4;
         }
+
+        /* Q&A Interactive Box CSS */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            max-height: 420px;
+            background: rgba(10, 14, 26, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 16px;
+            gap: 12px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .qa-item {
+            background: rgba(13, 20, 38, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .qa-item:hover {
+            border-color: rgba(0, 242, 254, 0.25);
+            background: rgba(13, 20, 38, 0.7);
+        }
+
+        .qa-question-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .qa-question-btn:hover {
+            color: var(--cyber-cyan);
+        }
+
+        .qa-question-btn::after {
+            content: "▼";
+            font-size: 10px;
+            color: var(--cyber-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .qa-item.active .qa-question-btn::after {
+            transform: rotate(-180deg);
+            color: var(--cyber-cyan);
+        }
+
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+            background: rgba(5, 7, 12, 0.4);
+            border-top: 1px solid transparent;
+        }
+
+        .qa-item.active .qa-answer {
+            max-height: 200px;
+            border-top-color: rgba(148, 163, 184, 0.1);
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+        }
+
+        .qa-answer-content {
+            padding: 14px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .qa-answer-content strong {
+            color: var(--cyber-cyan);
+        }
     </style>
 </head>
 
@@ -602,7 +692,7 @@
             
             <!-- Left Side: Bullet Points -->
             <div class="slide-left">
-                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 11</div>
+                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 12</div>
                 <h1 class="slide-title" id="slide-title">Cybersecurity Chi Shuruaat</h1>
                 <div class="slide-subtitle" id="slide-subtitle">Introduction, Domains, ani Careers</div>
                 <ul class="slide-bullets" id="slide-bullets">
@@ -781,6 +871,17 @@
                     "Ha step-by-step syllabus regular follow karun cybersecurity expert bana!"
                 ],
                 tool: "roadmap-viewer"
+            },
+            {
+                title: "Dhanyawad! (Thank You)",
+                subtitle: "Safe Raha, Secure Raha!",
+                bullets: [
+                    "**Cybersecurity hi superpower ahe**: Yaacha vaapar safe ani responsibly kara.",
+                    "**Alert Raha**: Online kontihi संशयास्पद activity dislyas ghabru naka.",
+                    "**Report Kara**: Call **1930** var kara kiwa **cybercrime.gov.in** check kara.",
+                    "**Ask Us Anything**: Tumche doubts clear karnya sathi right side chya questions var click kara!"
+                ],
+                tool: "qa-viewer"
             }
         ];
 
@@ -1289,9 +1390,65 @@
                         </div>
                     </div>
                 `;
+            } else if (toolName === 'qa-viewer') {
+                div.className = 'qa-container';
+                div.innerHTML = `
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📱 WhatsApp varil unknown messages open karne safe ahe?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                <strong>Nahi!</strong> Unknown links var click kelyane phone madhe virus yeu shakto ani data hack/leak hou shakto. Parents chi madat gya.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">🔑 Maza password kasa asayla hava?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Ek strong password madhe <strong>Capital letters (A-Z)</strong>, <strong>small letters (a-z)</strong>, <strong>Numbers (0-9)</strong>, ani <strong>symbols (@, #, $)</strong> asle pahijet. Jashe ki: <code>Aapla@Pass#26</code>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💬 Online game kheltaana strangers sobat chat karne safe ahe?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Strangers sobat bolu naka ani tyana aaple <strong>personal details</strong> (naav, school, mobile number, photo) share karu naka. Block karun parents la sanga.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📲 OTP mhanje kay ani to konala share karu shakto?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                OTP (One Time Password) ha verification sathi asto. To <strong>konalach share karu naka</strong>, to share kelyane accounts hack/leak hou shaktat.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💻 System madhe virus yenyapasun kase vachaave?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Fakt <strong>official store</strong> (Google Play Store kiwa Apple App Store) varunach apps download kara. Pirated software kiwa game cheats download karu naka.
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
             return div;
+        }
+
+        // Toggle Q&A items accordion
+        function toggleQA(btn) {
+            const item = btn.parentElement;
+            const activeItems = document.querySelectorAll('.qa-item.active');
+            activeItems.forEach(el => {
+                if (el !== item) {
+                    el.classList.remove('active');
+                }
+            });
+            item.classList.toggle('active');
         }
 
         // Initialize progress bar tracker dots
