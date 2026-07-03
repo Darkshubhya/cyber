@@ -655,6 +655,96 @@
             color: var(--text-secondary);
             line-height: 1.4;
         }
+
+        /* Q&A Interactive Box CSS */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            max-height: 420px;
+            background: rgba(10, 14, 26, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 16px;
+            gap: 12px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .qa-item {
+            background: rgba(13, 20, 38, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .qa-item:hover {
+            border-color: rgba(0, 242, 254, 0.25);
+            background: rgba(13, 20, 38, 0.7);
+        }
+
+        .qa-question-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .qa-question-btn:hover {
+            color: var(--cyber-cyan);
+        }
+
+        .qa-question-btn::after {
+            content: "▼";
+            font-size: 10px;
+            color: var(--cyber-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .qa-item.active .qa-question-btn::after {
+            transform: rotate(-180deg);
+            color: var(--cyber-cyan);
+        }
+
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+            background: rgba(5, 7, 12, 0.4);
+            border-top: 1px solid transparent;
+        }
+
+        .qa-item.active .qa-answer {
+            max-height: 200px;
+            border-top-color: rgba(148, 163, 184, 0.1);
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+        }
+
+        .qa-answer-content {
+            padding: 14px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .qa-answer-content strong {
+            color: var(--cyber-cyan);
+        }
     </style>
 </head>
 
@@ -691,7 +781,7 @@
 
             <!-- Left Side: Bullet Points -->
             <div class="slide-left">
-                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 11</div>
+                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 12</div>
                 <h1 class="slide-title" id="slide-title">Welcome to Cybersecurity!</h1>
                 <div class="slide-subtitle" id="slide-subtitle">How to Protect Our Digital World</div>
                 <ul class="slide-bullets" id="slide-bullets">
@@ -932,6 +1022,23 @@
                     <strong>How to Present this Slide (Speak for 4-5 minutes):</strong>
                     <ul>
                         <li><strong>Interactive Demo:</strong> Guide the students through the interactive planner. Select a month and show them the exact weekly targets, showing how they can cover topics systematically day by day.</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Thank You!",
+                subtitle: "Stay Safe, Stay Secure!",
+                bullets: [
+                    "**Cybersecurity is a superpower**: Use it responsibly to protect yourself.",
+                    "**Stay Alert**: Do not fear if you encounter suspicious activities online.",
+                    "**Seek Help**: Call **1930** or visit **cybercrime.gov.in** to report fraud.",
+                    "**Ask Us Anything**: Click on the questions on the right to learn more!"
+                ],
+                tool: "qa-viewer",
+                notes: `
+                    <strong>How to Present this Slide (Speak for 3-4 minutes):</strong>
+                    <ul>
+                        <li>Thank the students, encourage them to follow the learning roadmap, and remind them of the security helpline numbers. Encourage them to ask questions using the interactive Q&A tool on the right.</li>
                     </ul>
                 `
             }
@@ -1444,9 +1551,65 @@
                         </div>
                     </div>
                 `;
+            } else if (toolName === 'qa-viewer') {
+                div.className = 'qa-container';
+                div.innerHTML = `
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📱 Is it safe to click on unknown links or messages?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                <strong>No!</strong> Clicking on unknown links can download harmful viruses or redirect you to fake websites that steal your private data. Always check with parents first.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">🔑 How should I create a strong password?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                A strong password is at least 8 characters long and combines <strong>uppercase letters (A-Z)</strong>, <strong>lowercase letters (a-z)</strong>, <strong>numbers (0-9)</strong>, and <strong>symbols (@, #, $)</strong>. E.g., <code>Shuruaat#2026</code>.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💬 What if a stranger chats with me in an online game?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                <strong>Never</strong> share personal details like your name, school, phone number, or photo. Block them if they make you uncomfortable and tell a parent.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📲 What is an OTP and can I share it with friends?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                OTP (One Time Password) is a secure verification key. <strong>Never share it with anyone</strong>, even friends. Sharing it lets others access your private accounts.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💻 How can I protect my computer from viruses?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Download apps and games <strong>only</strong> from official stores (Google Play Store/Apple App Store). Avoid pirated software and game cheats.
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
             return div;
+        }
+
+        // Toggle Q&A items accordion
+        function toggleQA(btn) {
+            const item = btn.parentElement;
+            const activeItems = document.querySelectorAll('.qa-item.active');
+            activeItems.forEach(el => {
+                if (el !== item) {
+                    el.classList.remove('active');
+                }
+            });
+            item.classList.toggle('active');
         }
 
         // Initialize progress bar tracker dots
