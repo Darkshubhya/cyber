@@ -638,6 +638,96 @@
             color: var(--text-secondary);
             line-height: 1.4;
         }
+
+        /* Q&A Interactive Box CSS */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            max-height: 420px;
+            background: rgba(10, 14, 26, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            padding: 16px;
+            gap: 12px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .qa-item {
+            background: rgba(13, 20, 38, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .qa-item:hover {
+            border-color: rgba(0, 242, 254, 0.25);
+            background: rgba(13, 20, 38, 0.7);
+        }
+
+        .qa-question-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 14px 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .qa-question-btn:hover {
+            color: var(--cyber-cyan);
+        }
+
+        .qa-question-btn::after {
+            content: "▼";
+            font-size: 10px;
+            color: var(--cyber-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .qa-item.active .qa-question-btn::after {
+            transform: rotate(-180deg);
+            color: var(--cyber-cyan);
+        }
+
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+            background: rgba(5, 7, 12, 0.4);
+            border-top: 1px solid transparent;
+        }
+
+        .qa-item.active .qa-answer {
+            max-height: 200px;
+            border-top-color: rgba(148, 163, 184, 0.1);
+            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+        }
+
+        .qa-answer-content {
+            padding: 14px 16px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .qa-answer-content strong {
+            color: var(--cyber-cyan);
+        }
     </style>
 </head>
 
@@ -672,7 +762,7 @@
             
             <!-- Left Side: Bullet Points -->
             <div class="slide-left">
-                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 11</div>
+                <div class="slide-index-tag" id="slide-indicator">Slide 01 of 12</div>
                 <h1 class="slide-title" id="slide-title">Cybersecurity Ki Shuruaat</h1>
                 <div class="slide-subtitle" id="slide-subtitle">Digital Duniya Ko Secure Rakhna</div>
                 <ul class="slide-bullets" id="slide-bullets">
@@ -916,6 +1006,23 @@
                     <strong>Slide Kaise Present Karein (Speak for 4-5 minutes):</strong>
                     <ul>
                         <li>Demonstrate the dynamic week-by-week daily logs planner.</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Dhanyawad! (Thank You)",
+                subtitle: "Safe Raho, Secure Raho!",
+                bullets: [
+                    "**Cybersecurity ek superpower hai**: Iska use responsibly karein aur secure rahein.",
+                    "**Alert Rahein**: Kisi bhi cyber fraud ya crime hone par ghabrayein nahi.",
+                    "**Report Karein**: Call **1930** ya visit karein **cybercrime.gov.in**.",
+                    "**Ask Us Anything**: Right side me diye gaye sawalo par click karke seekhein!"
+                ],
+                tool: "qa-viewer",
+                notes: `
+                    <strong>Slide Kaise Present Karein (Speak for 3-4 minutes):</strong>
+                    <ul>
+                        <li>Thank the kids, encourage them to follow the roadmap, and remind them of the security helpline numbers. Use the interactive Q&A on the right to resolve any questions they have.</li>
                     </ul>
                 `
             }
@@ -1428,9 +1535,65 @@
                         </div>
                     </div>
                 `;
+            } else if (toolName === 'qa-viewer') {
+                div.className = 'qa-container';
+                div.innerHTML = `
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📱 Unknown messages ya links par click karna safe hai?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                <strong>Nahi!</strong> Unknown links me virus ho sakta hai jo phone hack kar sakta hai aur data leak kar sakta hai. Kisi bhi aisi link par click na karein, aur pehle parents se poochein.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">🔑 Mujhe apna password kaisa banana chahiye?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Ek strong password me <strong>Capital letters (A-Z)</strong>, <strong>small letters (a-z)</strong>, <strong>Numbers (0-9)</strong>, aur <strong>symbols (@, #, $)</strong> mix hone chahiye. Jaise: <code>B@ch@#2026</code>. Apna naam ya birthday kabhi use na karein.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💬 Game khelte waqt stranger baat kare toh kya karu?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Koshish karein ki strangers se baat na karein. Apni <strong>personal details</strong> (naam, school, photo, address) kisi ko na batayein. Agar koi tang kare toh block karein aur parents ko batayein.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">📲 OTP kya hota hai aur kya ise share karein?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                OTP (One Time Password) aapki secret key hoti hai jo bank ya accounts verify karti hai. Ise <strong>kabhi bhi kisi se share na karein</strong>, chahe wo close friend hi kyun na ho.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-item">
+                        <button class="qa-question-btn" onclick="toggleQA(this)">💻 System me virus aane se kaise bachein?</button>
+                        <div class="qa-answer">
+                            <div class="qa-answer-content">
+                                Hamesha official stores (Google Play Store ya Apple App Store) se hi apps download karein. Fake cheat software aur pirated games download karne se bachein.
+                            </div>
+                        </div>
+                    </div>
+                `;
             }
 
             return div;
+        }
+
+        // Toggle Q&A items accordion
+        function toggleQA(btn) {
+            const item = btn.parentElement;
+            const activeItems = document.querySelectorAll('.qa-item.active');
+            activeItems.forEach(el => {
+                if (el !== item) {
+                    el.classList.remove('active');
+                }
+            });
+            item.classList.toggle('active');
         }
 
         // Initialize progress bar tracker dots
